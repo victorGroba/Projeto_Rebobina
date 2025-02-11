@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebobinar</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4; /* Cor de fundo mais clara */
+            color: #333; /* Cor de texto escura para contraste */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #ffffff; /* Fundo branco para navbar */
+            padding: 20px 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .navbar-brand {
+            color: #ffb74d; /* Cor da marca em destaque */
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .navbar .navbar-nav .nav-link {
+            color: #333; /* Texto da navbar escuro */
+            font-size: 1.1rem;
+            margin-right: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .navbar-nav .nav-link:hover {
+            color: #ffb74d; /* Cor de hover laranja */
+        }
+
+        .navbar-toggler {
+            border-color: #ffb74d;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #ffb74d;
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 80vh;
+            background: url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background-size: cover;
+            text-align: center;
+        }
+
+        #hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.7);
+        }
+
+        #hero p {
+            font-size: 1.5rem;
+            color: #f0f0f0;
+            margin-top: 20px;
+        }
+
+        /* Cards de críticas */
+        .card {
+            background-color: #ffffff; /* Cartões com fundo branco */
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            color: #ffb74d; /* Título do cartão em destaque */
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .card-text {
+            color: #555; /* Texto do cartão em cinza escuro */
+        }
+
+        .btn-outline-light {
+            border-color: #ffb74d;
+            color: #ffb74d;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-light:hover {
+            background-color: #ffb74d;
+            color: #fff;
+            border-color: #ffb74d;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #ffffff; /* Rodapé com fundo branco */
+            color: #555; /* Cor do texto do rodapé mais escura */
+            padding: 30px;
+            text-align: center;
+            font-size: 1rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Responsividade para dispositivos móveis */
+        @media (max-width: 768px) {
+            #hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .card-img-top {
+                height: 150px;
+            }
+
+            .card-body {
+                padding: 15px;
+            }
+
+            .navbar .navbar-nav .nav-link {
+                margin-right: 0;
+                font-size: 1rem;
+            }
+
+            .navbar .navbar-brand {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Rebobinar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gallery">Galeria</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contato</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Seção Hero -->
+    <section id="hero">
+        <div>
+            <h1>Últimas Críticas de Filmes</h1>
+            <p>Encontre as análises mais recentes e as melhores críticas sobre os filmes que você ama!</p>
+        </div>
+    </section>
+
+    <!-- Seção de Críticas -->
+    <section class="container py-5">
+        <h2 class="display-4 text-center text-dark mb-5">Últimas Críticas</h2>
+        <div class="row">
+            <!-- Exemplo de Crítica -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Filme 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Filme 1</h5>
+                        <p class="card-text">Uma breve descrição da crítica do filme 1. Um ótimo filme para quem ama ação!</p>
+                        <a href="/review/1" class="btn btn-outline-light">Leia Mais</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Filme 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Filme 2</h5>
+                        <p class="card-text">Uma análise sobre a trama e os personagens. Não perca!</p>
+                        <a href="/review/2" class="btn btn-outline-light">Leia Mais</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Filme 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Filme 3</h5>
+                        <p class="card-text">Um filme impactante com ótimas atuações. Saiba mais sobre ele.</p>
+                        <a href="/review/3" class="btn btn-outline-light">Leia Mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2025 Rebobinar. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Scripts do Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

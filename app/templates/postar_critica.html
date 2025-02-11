@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Painel Administrativo{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2>Painel Administrativo</h2>
+
+    <!-- 📌 Formulário para criar um novo post -->
+    <form method="POST" action="{{ url_for('criar_post') }}" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Título</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" required>
+        </div>
+        <div class="mb-3">
+            <label for="imagem" class="form-label">Imagem</label>
+            <input type="file" class="form-control" id="imagem" name="imagem" required>
+        </div>
+        <div class="mb-3">
+            <label for="resumo" class="form-label">Resumo</label>
+            <textarea class="form-control" id="resumo" name="resumo" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Criar Postagem</button>
+    </form>
+
+    <!-- 📌 Listagem de Postagens -->
+    <h3 class="mt-5">Postagens Atuais</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Resumo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+            <tr>
+                <td>{{ post.titulo }}</td>
+                <td>{{ post.resumo[:50] }}...</td>
+                <td>
+                    <a href="{{ url_for('editar_post', id=post.id) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{{ url_for('deletar_post', id=post.id) }}" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

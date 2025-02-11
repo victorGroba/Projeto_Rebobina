@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilmCritique Haven</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #9b87f5;
+            --dark-bg: #1A1F2C;
+            --card-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background-color: rgba(26, 31, 44, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-container {
+            width: 150px;
+            padding: 10px 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .featured-review {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .featured-review img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-review .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+            padding: 3rem;
+            color: white;
+        }
+
+        .movie-card {
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .genre-badge {
+            background-color: rgba(155, 135, 245, 0.2);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .rating {
+            color: var(--primary-color);
+        }
+
+        .movie-details {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+
+        .search-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 8px 20px;
+            color: white;
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar com Logo -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <div class="logo-container">
+                <!-- Substitua o src pela URL da sua logo -->
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="FilmCritique Haven Logo">
+
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Últimas Críticas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Categorias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sobre</a>
+                    </li>
+                </ul>
+                <form class="d-flex ms-3">
+                    <input class="search-bar border-0" type="search" placeholder="Buscar filmes...">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Espaço para compensar a navbar fixa -->
+    <div style="height: 80px;"></div>
+
+    <!-- Header com Informações -->
+    <header class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="display-4 fw-bold">FilmCritique Haven</h1>
+                <p class="text-muted lead">Suas críticas de cinema favoritas em um só lugar</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="d-flex justify-content-end gap-3">
+                    <a href="#" class="btn btn-outline-light">
+                        <i class="fas fa-user-plus me-2"></i>Cadastrar
+                    </a>
+                    <a href="#" class="btn btn-primary" style="background-color: var(--primary-color);">
+                        <i class="fas fa-sign-in-alt me-2"></i>Entrar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Featured Review -->
+    <div class="container">
+        <div class="featured-review">
+            <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&auto=format&fit=crop" alt="Oppenheimer">
+            <div class="overlay">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <span class="genre-badge">Drama</span>
+                    <span class="rating">
+                        <i class="fas fa-star"></i>
+                        <span class="ms-1">9.8/10</span>
+                    </span>
+                    <span class="text-muted">
+                        <i class="fas fa-clock me-1"></i>
+                        Lançamento: 2023
+                    </span>
+                </div>
+                <h2 class="display-5 fw-bold mb-3">Oppenheimer</h2>
+                <p class="lead mb-4">Uma obra-prima cinematográfica que explora a complexa história do pai da bomba atômica. Christopher Nolan entrega um filme excepcional sobre ciência, moral e as consequências de nossas escolhas.</p>
+                <div class="movie-details">
+                    <p><strong>Diretor:</strong> Christopher Nolan</p>
+                    <p><strong>Elenco:</strong> Cillian Murphy, Emily Blunt, Matt Damon</p>
+                    <p><strong>Duração:</strong> 180 minutos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest Reviews -->
+    <div class="container pb-5">
+        <h2 class="section-title">Últimas Críticas</h2>
+        
+        <!-- Filtros -->
+        <div class="mb-4">
+            <div class="btn-group">
+                <button class="btn btn-outline-light active">Todos</button>
+                <button class="btn btn-outline-light">Drama</button>
+                <button class="btn btn-outline-light">Ficção Científica</button>
+                <button class="btn btn-outline-light">Ação</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Movie Card 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="movie-card">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=800&auto=format&fit=crop" alt="Duna: Parte 2">
+                        <span class="position-absolute top-0 end-0 m-2 badge bg-primary">Novo</span>
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="genre-badge">Ficção Científica</span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i>
+                                <span class="ms-1">9.5/10</span>
+                            </span>
+                        </div>
+                        <h3 class="h4 mb-3">Duna: Parte 2</h3>
+                        <p class="text-muted mb-3">Denis Villeneuve conclui sua adaptação épica com uma sequência espetacular que expande o universo de Frank Herbert com visual deslumbrante e performances memoráveis.</p>
+                        <div class="movie-details">
+                            <p class="mb-2"><i class="fas fa-user-tie me-2"></i>Diretor: Denis Villeneuve</p>
+                            <p class="mb-2"><i class="fas fa-clock me-2"></i>Duração: 166 min</p>
+                            <p><i class="fas fa-calendar me-2"></i>Lançamento: 2024</p>
+                        </div>
+                        <a href="#" class="btn btn-outline-light w-100 mt-3">Ler crítica completa</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Movie Card 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="movie-card">
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop" alt="Pobres Criaturas">
+                    <div class="p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="genre-badge">Drama</span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i>
+                                <span class="ms-1">9.3/10</span>
+                            </span>
+                        </div>
+                        <h3 class="h4 mb-3">Pobres Criaturas</h3>
+                        <p class="text-muted mb-3">Uma reimaginação surreal e provocativa do mito de Frankenstein. Emma Stone brilha nesta jornada única de autodescoberta e libertação feminina.</p>
+                        <div class="movie-details">
+                            <p class="mb-2"><i class="fas fa-user-tie me-2"></i>Diretor: Yorgos Lanthimos</p>
+                            <p class="mb-2"><i class="fas fa-clock me-2"></i>Duração: 141 min</p>
+                            <p><i class="fas fa-calendar me-2"></i>Lançamento: 2024</p>
+                        </div>
+                        <a href="#" class="btn btn-outline-light w-100 mt-3">Ler crítica completa</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adicione mais cards seguindo o mesmo padrão -->
+        </div>
+
+        <!-- Paginação -->
+        <nav class="mt-5">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#"><i class="fas fa-chevron-left"></i></a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="mb-3">Sobre o FilmCritique Haven</h5>
+                    <p class="text-muted">Seu destino definitivo para críticas de cinema aprofundadas e análises cinematográficas de qualidade.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Links Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">Últimos Lançamentos</a></li>
+                        <li><a href="#" class="text-muted">Críticas em Destaque</a></li>
+                        <li><a href="#" class="text-muted">Top 10 da Semana</a></li>
+                        <li><a href="#" class="text-muted">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Siga-nos</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-muted"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center text-muted">
+                <small>&copy; 2024 FilmCritique Haven. Todos os direitos reservados.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS e Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
