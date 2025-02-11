@@ -2,24 +2,27 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-# Inicializando o banco de dados
 db = SQLAlchemy()
 
 def create_app():
-    app = Flask(__name__, template_folder='app/templates', static_folder='app/static')
+    app = Flask(__name__, template_folder='templates', static_folder='static')
 
-    # Configurações do banco de dados
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # Exemplo de banco de dados SQLite
+    # Configuração do banco de dados
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rebobina.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    # Configuração para uploads
-    app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'uploads')
+    # Configuração da pasta de uploads
+    app.config['UPLOAD_FOLDER'] = os.path.join(app.static_folder, 'uploads')
 
-    # Inicializar o banco de dados
+    # Inicializa o banco de dados
     db.init_app(app)
 
-    # Registrar as rotas
+    # Importa e registra rotas
     from .routes import register_routes
     register_routes(app)
+
+    # Criação do banco de dados dentro do contexto
+    with app.app_context():
+        db.create_all()
 
     return app
