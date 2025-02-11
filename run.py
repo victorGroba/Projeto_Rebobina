@@ -1,8 +1,13 @@
+import os
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
-app = Flask(__name__)
+# Define o diretório da pasta static
+app = Flask(__name__, 
+            template_folder=os.path.join(os.path.dirname(__file__), 'app/templates'),
+            static_folder=os.path.join(os.path.dirname(__file__), 'app/static'))
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rebobina.db'
 db = SQLAlchemy(app)
 
